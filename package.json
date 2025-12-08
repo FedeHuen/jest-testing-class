@@ -1,0 +1,105 @@
+{
+  "name": "clase-testing-jest",
+  "version": "1.0.0",
+  "description": "Material de clase sobre testing unitario con Jest",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test1": "jest --testPathPattern=ejemplos/01-test-basico",
+    "test1:watch": "jest --watch --testPathPattern=ejemplos/01-test-basico",
+    "test1:coverage": "jest --coverage --testPathPattern=ejemplos/01-test-basico",
+    "test2": "jest --testPathPattern=ejemplos/02-tests-asincronos",
+    "test2:watch": "jest --watch --testPathPattern=ejemplos/02-tests-asincronos",
+    "test2:coverage": "jest --coverage --testPathPattern=ejemplos/02-tests-asincronos",
+    "test3": "jest --testPathPattern=ejemplos/03-mocks-funciones",
+    "test3:watch": "jest --watch --testPathPattern=ejemplos/03-mocks-funciones",
+    "test3:coverage": "jest --coverage --testPathPattern=ejemplos/03-mocks-funciones",
+    "test4": "jest --testPathPattern=ejemplos/04-mocks-modulos",
+    "test4:watch": "jest --watch --testPathPattern=ejemplos/04-mocks-modulos",
+    "test4:coverage": "jest --coverage --testPathPattern=ejemplos/04-mocks-modulos",
+    "test5": "jest --testPathPattern=ejemplos/05-spies",
+    "test5:watch": "jest --watch --testPathPattern=ejemplos/05-spies",
+    "test5:coverage": "jest --coverage --testPathPattern=ejemplos/05-spies",
+    "test6": "jest --testPathPattern=ejemplos/06-hooks",
+    "test6:watch": "jest --watch --testPathPattern=ejemplos/06-hooks",
+    "test6:coverage": "jest --coverage --testPathPattern=ejemplos/06-hooks",
+    "test7": "jest --testPathPattern=ejemplos/07-snapshots",
+    "test7:watch": "jest --watch --testPathPattern=ejemplos/07-snapshots",
+    "test7:coverage": "jest --coverage --testPathPattern=ejemplos/07-snapshots",
+    "test7:update": "jest -u --testPathPattern=ejemplos/07-snapshots",
+    "test:all:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "jest",
+    "testing",
+    "unit-testing",
+    "tutorial"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.23.0",
+    "@babel/preset-react": "^7.23.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.1.2",
+    "babel-jest": "^29.7.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.0.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "jest": {
+    "projects": [
+      {
+        "displayName": "node",
+        "testEnvironment": "node",
+        "testMatch": [
+          "<rootDir>/ejemplos/01-test-basico/**/*.test.js",
+          "<rootDir>/ejemplos/02-tests-asincronos/**/*.test.js",
+          "<rootDir>/ejemplos/03-mocks-funciones/**/*.test.js",
+          "<rootDir>/ejemplos/04-mocks-modulos/**/*.test.js",
+          "<rootDir>/ejemplos/05-spies/**/*.test.js",
+          "<rootDir>/ejemplos/06-hooks/**/*.test.js"
+        ],
+        "coverageDirectory": "coverage",
+        "collectCoverageFrom": [
+          "ejemplos/**/*.js",
+          "!ejemplos/**/*.test.js",
+          "!ejemplos/**/node_modules/**"
+        ]
+      },
+      {
+        "displayName": "react",
+        "testEnvironment": "jsdom",
+        "testMatch": [
+          "<rootDir>/ejemplos/07-snapshots/**/*.test.jsx"
+        ],
+        "setupFilesAfterEnv": ["<rootDir>/ejemplos/07-snapshots/setupTests.js"],
+        "transform": {
+          "^.+\\.(js|jsx)$": "babel-jest"
+        },
+        "moduleNameMapper": {
+          "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+        },
+        "coverageDirectory": "coverage",
+        "collectCoverageFrom": [
+          "ejemplos/07-snapshots/**/*.{js,jsx}",
+          "!ejemplos/07-snapshots/**/*.test.{js,jsx}",
+          "!ejemplos/07-snapshots/setupTests.js"
+        ]
+      }
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  }
+}
+
