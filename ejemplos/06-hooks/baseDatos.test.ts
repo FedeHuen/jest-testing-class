@@ -1,25 +1,25 @@
-const { Database } = require('./database');
+import { BaseDatos, IItem } from './baseDatos';
 
-describe('Database operations with hooks', () => {
-  let db;
+describe('Operaciones de base de datos con hooks', () => {
+  let db: BaseDatos;
 
   // Se ejecuta UNA VEZ antes de todos los tests
   beforeAll(async () => {
     console.log('Setting up database connection...');
-    db = new Database();
-    await db.connect();
+    db = new BaseDatos();
+    await db.conectar();
   });
 
   // Se ejecuta UNA VEZ después de todos los tests
   afterAll(async () => {
     console.log('Closing database connection...');
-    await db.disconnect();
+    await db.desconectar();
   });
 
   // Se ejecuta antes de CADA test
   beforeEach(() => {
     console.log('Clearing database before test...');
-    db.clear();
+    db.limpiar();
   });
 
   // Se ejecuta después de CADA test
@@ -27,29 +27,29 @@ describe('Database operations with hooks', () => {
     console.log('Test completed');
   });
 
-  test('inserts item into database', () => {
-    const item = { id: 1, name: 'Test Item' };
-    const result = db.insert(item);
+  test('inserta item en la base de datos', () => {
+    const item: IItem = { id: 1, name: 'Test Item' };
+    const resultado = db.insertar(item);
     
-    expect(result).toEqual(item);
-    expect(db.findAll()).toHaveLength(1);
+    expect(resultado).toEqual(item);
+    expect(db.encontrarTodos()).toHaveLength(1);
   });
 
-  test('finds all items', () => {
-    db.insert({ id: 1, name: 'Item 1' });
-    db.insert({ id: 2, name: 'Item 2' });
+  test('encuentra todos los items', () => {
+    db.insertar({ id: 1, name: 'Item 1' });
+    db.insertar({ id: 2, name: 'Item 2' });
     
-    const items = db.findAll();
+    const items = db.encontrarTodos();
     expect(items).toHaveLength(2);
   });
 
-  test('database is empty after beforeEach', () => {
+  test('la base de datos está vacía después de beforeEach', () => {
     // Este test debería tener la DB vacía gracias a beforeEach
-    expect(db.findAll()).toHaveLength(0);
+    expect(db.encontrarTodos()).toHaveLength(0);
   });
 });
 
-describe('Hooks execution order', () => {
+describe('Orden de ejecución de hooks', () => {
   beforeAll(() => {
     console.log('1. beforeAll - runs once before all tests');
   });
@@ -66,12 +66,12 @@ describe('Hooks execution order', () => {
     console.log('3/5. afterEach - runs after each test');
   });
 
-  test('first test', () => {
+  test('primer test', () => {
     console.log('   Test 1 executing');
     expect(true).toBe(true);
   });
 
-  test('second test', () => {
+  test('segundo test', () => {
     console.log('   Test 2 executing');
     expect(true).toBe(true);
   });
