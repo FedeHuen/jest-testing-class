@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { Button, Select, MenuItem, FormControl, InputLabel, Box, SelectChangeEvent } from '@mui/material';
+import React, { useState } from "react";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Box,
+  SelectChangeEvent,
+} from "@mui/material";
 
 interface IOpcion {
   value: string;
@@ -10,19 +17,15 @@ interface IPropsEjemploMaterialUI {
   opciones?: IOpcion[];
 }
 
-const EjemploMaterialUI: React.FC<IPropsEjemploMaterialUI> = ({ opciones = [] }) => {
-  const [opcionSeleccionada, establecerOpcionSeleccionada] = useState<string>('');
-  const [mostrarMensaje, establecerMostrarMensaje] = useState<boolean>(false);
-  const [mensajeBoton, establecerMensajeBoton] = useState<string>('');
+export const EjemploMaterialSelect: React.FC<IPropsEjemploMaterialUI> = ({
+  opciones,
+}: IPropsEjemploMaterialUI) => {
+  const [opcionSeleccionada, establecerOpcionSeleccionada] =
+    useState<string>("");
 
   const manejarCambioSelect = (evento: SelectChangeEvent<string>): void => {
     const valor = evento.target.value;
     establecerOpcionSeleccionada(valor);
-  };
-
-  const manejarClickBoton = (): void => {
-    establecerMostrarMensaje(true);
-    establecerMensajeBoton('¡Botón clickeado exitosamente!');
   };
 
   return (
@@ -37,27 +40,13 @@ const EjemploMaterialUI: React.FC<IPropsEjemploMaterialUI> = ({ opciones = [] })
           onChange={manejarCambioSelect}
           data-testid="select-option"
         >
-          {opciones.map((opcion) => (
+          {opciones?.map((opcion) => (
             <MenuItem key={opcion.value} value={opcion.value}>
               {opcion.label}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-
-      <Button 
-        variant="contained" 
-        onClick={manejarClickBoton}
-        data-testid="action-button"
-      >
-        Click Me
-      </Button>
-
-      {mostrarMensaje && (
-        <Box sx={{ mt: 2 }} data-testid="button-message">
-          {mensajeBoton}
-        </Box>
-      )}
 
       {opcionSeleccionada && (
         <Box sx={{ mt: 2 }} data-testid="select-message">
@@ -67,6 +56,3 @@ const EjemploMaterialUI: React.FC<IPropsEjemploMaterialUI> = ({ opciones = [] })
     </Box>
   );
 };
-
-export default EjemploMaterialUI;
-
